@@ -8,7 +8,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and description */}
           <div className="col-span-1 md:col-span-2">
-           
+               <img 
+              src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e7120.png" 
+              alt="VIZMORA" 
+              className="h-8 w-auto"
+            />
             <p className="text-gray-400 mb-4 max-w-md">
               Empowering creators with cutting-edge AI technology. Transform your ideas into reality with our comprehensive suite of AI-powered tools.
             </p>
@@ -58,3 +62,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
