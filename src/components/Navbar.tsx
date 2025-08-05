@@ -14,7 +14,7 @@ const Navbar = () => {
             {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
                  <img 
-              src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e7120.png" 
+              src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e71200.png" 
               alt="VIZMORA" 
               className="h-8 w-auto"
             />
@@ -99,4 +99,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
