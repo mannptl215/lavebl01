@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Logo and description */}
           <div className="col-span-1 md:col-span-2">
                <img 
-              src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e7120.png" 
+              src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e71200.png" 
               alt="VIZMORA" 
               className="h-8 w-auto"
             />
@@ -62,4 +62,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
 
