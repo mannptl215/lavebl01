@@ -11,19 +11,19 @@ const stats = [
   },
   {
     icon: Image,
-    value: "0.1M+",
+    value: "120k+",
     label: "Images Processed",
     description: "High-quality transformations"
   },
   {
     icon: Clock,
-    value: "99.9%",
+    value: "97.2%",
     label: "Uptime",
     description: "Reliable service guarantee"
   },
   {
     icon: Star,
-    value: "4.9/5",
+    value: "4.7/5",
     label: "User Rating",
     description: "Customer satisfaction score"
   }
@@ -53,3 +53,4 @@ const Stats = () => {
 };
 
 export default Stats;
+
