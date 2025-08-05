@@ -11,9 +11,13 @@ const Navbar = () => {
     <nav className="fixed top-0 w-full z-50 bg-slate-950/90 backdrop-blur-sm border-b border-blue-600/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+            {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-           
+                 <img 
+              src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e7120.png" 
+              alt="VIZMORA" 
+              className="h-8 w-auto"
+            />
           </Link>
         
 
@@ -95,3 +99,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
