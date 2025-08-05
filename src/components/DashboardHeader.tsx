@@ -11,7 +11,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { User, Settings, History, LogOut, Bell } from "lucide-react";
 import { Link } from "react-router-dom";
-
+{/*logo*/}
+<img 
+src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e712.png" 
+alt="VIZMORA" 
+className="h-8 w-auto"
+/>
 interface DashboardHeaderProps {
   userName: string;
   onLogout: () => void;
@@ -84,3 +89,4 @@ const DashboardHeader = ({ userName, onLogout }: DashboardHeaderProps) => {
 };
 
 export default DashboardHeader;
+
