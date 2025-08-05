@@ -58,7 +58,7 @@ const Signup = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <img 
-            src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e712.png" 
+            src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e7120.png" 
             alt="VIZMORA" 
             className="h-10 w-auto mx-auto mb-4"
           />
@@ -174,3 +174,4 @@ const Signup = () => {
 };
 
 export default Signup;
+
