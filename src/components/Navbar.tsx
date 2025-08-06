@@ -16,7 +16,7 @@ const Navbar = () => {
                  <img 
               src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e71200.png" 
               alt="VIZMORA" 
-              className="h-8 w-auto"
+              className="h-20 w-19"
             />
           </Link>
         
@@ -99,5 +99,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
 
