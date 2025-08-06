@@ -18,7 +18,14 @@ import {
   Shield,
   Bell,
   LogOut,
-  RefreshCw
+  RefreshCw,
+  Search,
+  Ban,
+  Eye,
+  Edit,
+  Trash2,
+  Power,
+  PowerOff
 } from "lucide-react";
 
 const AdminPanel = () => {
@@ -29,6 +36,26 @@ const AdminPanel = () => {
     activeJobs: 23,
     serverUptime: "99.9%",
     totalProcessed: 15678
+  });
+  const [userSearchTerm, setUserSearchTerm] = useState("");
+  const [users, setUsers] = useState([
+    { id: 1, name: "John Doe", email: "john@example.com", status: "Active", joinDate: "2024-01-15" },
+    { id: 2, name: "Jane Smith", email: "jane@example.com", status: "Active", joinDate: "2024-01-20" },
+    { id: 3, name: "Bob Johnson", email: "bob@example.com", status: "Inactive", joinDate: "2024-01-10" },
+  ]);
+  const [services, setServices] = useState([
+    { id: 1, name: "Image Enhancement", status: "Active" },
+    { id: 2, name: "Background Removal", status: "Active" },
+    { id: 3, name: "Text to Image", status: "Active" },
+    { id: 4, name: "Voice Enhancement", status: "Inactive" },
+    { id: 5, name: "Video Generation", status: "Active" },
+    { id: 6, name: "Object Removal", status: "Active" }
+  ]);
+  const [systemSettings, setSystemSettings] = useState({
+    apiRateLimit: "100",
+    maxFileSize: "50",
+    backupInterval: "24",
+    logRetention: "30"
   });
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -55,6 +82,69 @@ const AdminPanel = () => {
     setAdminPassword("");
     navigate("/");
   };
+
+  const handleUserSearch = () => {
+    toast({
+      title: "Searching Users",
+      description: `Searching for "${userSearchTerm}"...`,
+    });
+  };
+
+  const handleUserAction = (action: string, userId: number, userName: string) => {
+    toast({
+      title: "User Action",
+      description: `${action} performed on user: ${userName}`,
+    });
+    
+    if (action === "Ban" || action === "Activate") {
+      setUsers(users.map(user => 
+        user.id === userId 
+          ? { ...user, status: action === "Ban" ? "Inactive" : "Active" }
+          : user
+      ));
+    }
+  };
+
+  const toggleServiceStatus = (serviceId: number) => {
+    setServices(services.map(service => 
+      service.id === serviceId 
+        ? { ...service, status: service.status === "Active" ? "Inactive" : "Active" }
+        : service
+    ));
+    
+    const service = services.find(s => s.id === serviceId);
+    toast({
+      title: "Service Updated",
+      description: `${service?.name} has been ${service?.status === "Active" ? "deactivated" : "activated"}`,
+    });
+  };
+
+  const handleBackendAction = (action: string) => {
+    toast({
+      title: "Backend Action",
+      description: `${action} initiated successfully`,
+    });
+    
+    // Simulate loading state
+    setTimeout(() => {
+      toast({
+        title: "Action Complete",
+        description: `${action} completed successfully`,
+      });
+    }, 2000);
+  };
+
+  const handleSaveSettings = () => {
+    toast({
+      title: "Settings Saved",
+      description: "System settings have been updated successfully",
+    });
+  };
+
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(userSearchTerm.toLowerCase()) ||
+    user.email.toLowerCase().includes(userSearchTerm.toLowerCase())
+  );
 
   if (!isAuthorized) {
     return (
@@ -252,11 +342,71 @@ const AdminPanel = () => {
                   <div className="flex gap-4">
                     <Input 
                       placeholder="Search users..." 
+                      value={userSearchTerm}
+                      onChange={(e) => setUserSearchTerm(e.target.value)}
                       className="bg-slate-800/50 border-slate-700 text-white"
                     />
-                    <Button className="bg-blue-600 hover:bg-blue-700">Search</Button>
+                    <Button onClick={handleUserSearch} className="bg-blue-600 hover:bg-blue-700">
+                      <Search className="w-4 h-4 mr-2" />
+                      Search
+                    </Button>
                   </div>
-                  <div className="text-gray-400">User management interface will be implemented here.</div>
+                  
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-slate-700">
+                          <th className="text-left py-3 px-4 text-gray-300">Name</th>
+                          <th className="text-left py-3 px-4 text-gray-300">Email</th>
+                          <th className="text-left py-3 px-4 text-gray-300">Status</th>
+                          <th className="text-left py-3 px-4 text-gray-300">Join Date</th>
+                          <th className="text-left py-3 px-4 text-gray-300">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredUsers.map((user) => (
+                          <tr key={user.id} className="border-b border-slate-800 hover:bg-slate-800/30">
+                            <td className="py-3 px-4 text-white">{user.name}</td>
+                            <td className="py-3 px-4 text-gray-400">{user.email}</td>
+                            <td className="py-3 px-4">
+                              <Badge className={user.status === "Active" ? "bg-green-600/20 text-green-400" : "bg-red-600/20 text-red-400"}>
+                                {user.status}
+                              </Badge>
+                            </td>
+                            <td className="py-3 px-4 text-gray-400">{user.joinDate}</td>
+                            <td className="py-3 px-4">
+                              <div className="flex gap-2">
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost" 
+                                  onClick={() => handleUserAction("View", user.id, user.name)}
+                                  className="text-blue-400 hover:text-blue-300"
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost" 
+                                  onClick={() => handleUserAction("Edit", user.id, user.name)}
+                                  className="text-yellow-400 hover:text-yellow-300"
+                                >
+                                  <Edit className="w-4 h-4" />
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost" 
+                                  onClick={() => handleUserAction(user.status === "Active" ? "Ban" : "Activate", user.id, user.name)}
+                                  className={user.status === "Active" ? "text-red-400 hover:text-red-300" : "text-green-400 hover:text-green-300"}
+                                >
+                                  {user.status === "Active" ? <Ban className="w-4 h-4" /> : <Power className="w-4 h-4" />}
+                                </Button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -272,20 +422,36 @@ const AdminPanel = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[
-                    "Image Enhancement",
-                    "Background Removal", 
-                    "Text to Image",
-                    "Voice Enhancement",
-                    "Video Generation",
-                    "Object Removal"
-                  ].map((service, index) => (
-                    <Card key={index} className="bg-slate-800/30 border-slate-700">
+                  {services.map((service) => (
+                    <Card key={service.id} className="bg-slate-800/30 border-slate-700">
                       <CardContent className="p-4">
-                        <div className="flex justify-between items-center">
-                          <span className="text-white text-sm">{service}</span>
-                          <Badge className="bg-green-600/20 text-green-400 text-xs">Active</Badge>
+                        <div className="flex justify-between items-center mb-3">
+                          <span className="text-white text-sm">{service.name}</span>
+                          <Badge className={service.status === "Active" ? "bg-green-600/20 text-green-400 text-xs" : "bg-red-600/20 text-red-400 text-xs"}>
+                            {service.status}
+                          </Badge>
                         </div>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => toggleServiceStatus(service.id)}
+                          className={`w-full ${service.status === "Active" 
+                            ? "border-red-600 text-red-400 hover:bg-red-600/20" 
+                            : "border-green-600 text-green-400 hover:bg-green-600/20"
+                          }`}
+                        >
+                          {service.status === "Active" ? (
+                            <>
+                              <PowerOff className="w-4 h-4 mr-2" />
+                              Deactivate
+                            </>
+                          ) : (
+                            <>
+                              <Power className="w-4 h-4 mr-2" />
+                              Activate
+                            </>
+                          )}
+                        </Button>
                       </CardContent>
                     </Card>
                   ))}
@@ -325,15 +491,27 @@ const AdminPanel = () => {
                   <div>
                     <h3 className="text-white font-semibold mb-3">Quick Actions</h3>
                     <div className="space-y-2">
-                      <Button variant="outline" className="w-full border-blue-600 text-blue-400">
+                      <Button 
+                        variant="outline" 
+                        onClick={() => handleBackendAction("Restart Backend")}
+                        className="w-full border-blue-600 text-blue-400 hover:bg-blue-600/20"
+                      >
                         <RefreshCw className="w-4 h-4 mr-2" />
                         Restart Backend
                       </Button>
-                      <Button variant="outline" className="w-full border-yellow-600 text-yellow-400">
+                      <Button 
+                        variant="outline" 
+                        onClick={() => handleBackendAction("Clear Cache")}
+                        className="w-full border-yellow-600 text-yellow-400 hover:bg-yellow-600/20"
+                      >
                         <Database className="w-4 h-4 mr-2" />
                         Clear Cache
                       </Button>
-                      <Button variant="outline" className="w-full border-purple-600 text-purple-400">
+                      <Button 
+                        variant="outline" 
+                        onClick={() => handleBackendAction("View Logs")}
+                        className="w-full border-purple-600 text-purple-400 hover:bg-purple-600/20"
+                      >
                         <Activity className="w-4 h-4 mr-2" />
                         View Logs
                       </Button>
@@ -357,33 +535,37 @@ const AdminPanel = () => {
                   <div>
                     <Label className="text-gray-300">API Rate Limit</Label>
                     <Input 
-                      defaultValue="100" 
+                      value={systemSettings.apiRateLimit}
+                      onChange={(e) => setSystemSettings({...systemSettings, apiRateLimit: e.target.value})}
                       className="bg-slate-800/50 border-slate-700 text-white"
                     />
                   </div>
                   <div>
                     <Label className="text-gray-300">Max File Size (MB)</Label>
                     <Input 
-                      defaultValue="50" 
+                      value={systemSettings.maxFileSize}
+                      onChange={(e) => setSystemSettings({...systemSettings, maxFileSize: e.target.value})}
                       className="bg-slate-800/50 border-slate-700 text-white"
                     />
                   </div>
                   <div>
                     <Label className="text-gray-300">Backup Interval (hours)</Label>
                     <Input 
-                      defaultValue="24" 
+                      value={systemSettings.backupInterval}
+                      onChange={(e) => setSystemSettings({...systemSettings, backupInterval: e.target.value})}
                       className="bg-slate-800/50 border-slate-700 text-white"
                     />
                   </div>
                   <div>
                     <Label className="text-gray-300">Log Retention (days)</Label>
                     <Input 
-                      defaultValue="30" 
+                      value={systemSettings.logRetention}
+                      onChange={(e) => setSystemSettings({...systemSettings, logRetention: e.target.value})}
                       className="bg-slate-800/50 border-slate-700 text-white"
                     />
                   </div>
                 </div>
-                <Button className="bg-blue-600 hover:bg-blue-700">
+                <Button onClick={handleSaveSettings} className="bg-blue-600 hover:bg-blue-700">
                   <Settings className="w-4 h-4 mr-2" />
                   Save Settings
                 </Button>
@@ -397,3 +579,4 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
+
