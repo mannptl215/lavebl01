@@ -152,9 +152,9 @@ const AdminPanel = () => {
         <Card className="w-full max-w-md bg-slate-900/50 border-blue-600/20 backdrop-blur-sm">
           <CardHeader className="text-center">
             <img 
-              src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e712.png" 
+              src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e7120.png" 
               alt="VIZMORA" 
-              className="h-10 w-auto mx-auto mb-4"
+              className="h-20 w-19 mx-auto mb-4"
             />
             <CardTitle className="text-white">Admin Access</CardTitle>
             <CardDescription className="text-gray-400">
@@ -579,4 +579,5 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
+
 
