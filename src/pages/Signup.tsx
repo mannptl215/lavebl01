@@ -174,7 +174,7 @@ const Signup = () => {
           <img 
             src="/lovable-uploads/84003fdb-4481-45db-89c7-ef29b876e71200.png" 
             alt="VIZMORA" 
-            className="h-10 w-auto mx-auto mb-4"
+            className="h-20 w-19 mx-auto mb-4"
           />
           <h1 className="text-3xl font-bold text-white mb-2">Join VIZMORA</h1>
           <p className="text-gray-400">Create your account and start creating</p>
@@ -399,4 +399,5 @@ const Signup = () => {
 };
 
 export default Signup;
+
 
